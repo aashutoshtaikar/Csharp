@@ -10,13 +10,16 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            ComplexNumber x = new ComplexNumber(1, 2);
-            ComplexNumber y = new ComplexNumber(1, 2);
+            ComplexNumber x = new ComplexNumber(6, 2);
+            ComplexNumber y = new ComplexNumber(6, 4);
 
             ComplexNumber a = x + y;
             a.Print();
 
             a = x * y;
+            a.Print();
+
+            a = x / y;
             a.Print();
 
             Console.Read();
