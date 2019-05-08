@@ -9,21 +9,21 @@ namespace ConsoleApp1
 
     class ComplexNumber
     {
+        private double real;
         private double im;
         private uint order;
-        private int sign = 1;
 
-        public double Im { get => im; set => im = value; }
-        public int Sign { get => sign; }
+        public double Im {
+            get => im;
+            set => im = value;
+        }
 
         public uint Order
         {
-            get
-            {
-                return order;
-            }
+            get => order;
             set
             {
+                int sign = 1;
                 if (value % 2 == 0)
                 {
                     order = 0;
@@ -40,11 +40,10 @@ namespace ConsoleApp1
                         sign = -1;
                     }
                 }
-                Im *= Sign;
+                Im *= sign;
             }
         }
 
-        private double real;
 
         public double Real
         {
@@ -104,7 +103,7 @@ namespace ConsoleApp1
             ComplexNumber aimg_breal = new ComplexNumber(0, a.Im * b.real, a.Order);
             ComplexNumber aimg_bimg = new ComplexNumber(0, a.Im * b.Im, a.Order + b.Order);
 
-            ComplexNumber sum = areal_breal + areal_bimg + aimg_breal + aimg_bimg; //order is 0?
+            ComplexNumber sum = areal_breal + areal_bimg + aimg_breal + aimg_bimg;
 
             return sum;
         }
@@ -114,7 +113,6 @@ namespace ConsoleApp1
             //take the conj of denominator
             ComplexNumber conj = new ComplexNumber(den.Real, -1*den.Im);
 
-            //
             ComplexNumber num_conj = new ComplexNumber(num * conj);
             ComplexNumber den_conj = new ComplexNumber(den * conj);
 
@@ -122,10 +120,6 @@ namespace ConsoleApp1
 
             return new ComplexNumber(num_conj.Real/den_conj.Real, num_conj.Im/den_conj.Real);
         }
-
-
-
-
 
         public void Print()
         {
