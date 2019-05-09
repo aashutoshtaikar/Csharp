@@ -6,27 +6,25 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-
     class ComplexNumber
     {
-        private double real;
-        private double im;
-        private uint order;
+        private float real;
+        private float im;
+        private uint imorder;
 
-        public double Im {
+        public float Im {
             get => im;
             set => im = value;
         }
-
         public uint Order
         {
-            get => order;
+            get => imorder;
             set
             {
                 int sign = 1;
                 if (value % 2 == 0)
                 {
-                    order = 0;
+                    imorder = 0;
                     if (value % 4 != 0)
                     {
                         sign = -1;
@@ -34,7 +32,7 @@ namespace ConsoleApp1
                 }
                 else
                 { //odd
-                    order = 1;
+                    imorder = 1;
                     if (value % 3 == 0)
                     {
                         sign = -1;
@@ -43,9 +41,7 @@ namespace ConsoleApp1
                 Im *= sign;
             }
         }
-
-
-        public double Real
+        public float Real
         {
             get
             {
@@ -62,7 +58,7 @@ namespace ConsoleApp1
             }
         }
 
-        public ComplexNumber(double real_value=0, double img_value=1, uint order=1)
+        public ComplexNumber(float real_value=0, float img_value=1, uint order=1)
         {
             this.im = img_value;
             this.Order = order;
@@ -73,18 +69,9 @@ namespace ConsoleApp1
         {
             this.real = other.real;
             this.im = other.im;
-            this.order = other.order;
+            this.imorder = other.imorder;
         }
 
-        public ComplexNumber Add(ComplexNumber other)
-        {
-            return new ComplexNumber(this.Real + other.Real, this.Im + other.Im);
-        }
-
-        public ComplexNumber Subtract(ComplexNumber other)
-        {
-            return new ComplexNumber(this.Real - other.Real, this.Im - other.Im);
-        }
 
         public static ComplexNumber operator +(ComplexNumber a, ComplexNumber b)
         {
@@ -93,7 +80,7 @@ namespace ConsoleApp1
 
         public static ComplexNumber operator -(ComplexNumber a, ComplexNumber b)
         {
-            return a.Subtract(b);
+            return new ComplexNumber(a.Real - b.Real, a.Im - b.Im, a.Order | b.Order);
         }
 
         public static ComplexNumber operator *(ComplexNumber a, ComplexNumber b)
@@ -110,7 +97,7 @@ namespace ConsoleApp1
 
         public static ComplexNumber operator /(ComplexNumber num, ComplexNumber den)
         {
-            //take the conj of denominator
+            //take the conj of denominator(complex conjugate)
             ComplexNumber conj = new ComplexNumber(den.Real, -1*den.Im);
 
             ComplexNumber num_conj = new ComplexNumber(num * conj);
@@ -125,7 +112,16 @@ namespace ConsoleApp1
         {
             if (this.im != 0 && this.Order == 1)
             {
-                Console.WriteLine(this.Real + "+" + this.Im + "i");
+                if (this.Real != 0)
+                {
+                    if (this.Im > 0) Console.WriteLine(this.Real + "+" + this.Im + "i");
+                    if (this.Im < 0) Console.WriteLine(this.Real + "" + this.Im + "i");
+                }
+                else
+                {
+                    if (this.Im > 0) Console.WriteLine(this.Im + "i");
+                    if (this.Im < 0) Console.WriteLine(this.Im + "i");
+                }
             }
             else Console.WriteLine(this.Real);
         }

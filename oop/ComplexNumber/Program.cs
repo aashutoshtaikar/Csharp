@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    using cn = ComplexNumber;
     class Program
     {
+         
         static void Main(string[] args)
         {
-            ComplexNumber x = new ComplexNumber(6, 2);
-            ComplexNumber y = new ComplexNumber(6, 4);
+            cn x = new cn(1, 2);
+            cn y = new cn(3, 4);
 
-            ComplexNumber a = x + y;
+            cn a = x - y;
             a.Print();
 
-            a = x * y;
+            a = new cn(1, 2) * new cn(3, 4);
             a.Print();
 
             a = x / y;
